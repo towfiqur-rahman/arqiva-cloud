@@ -1,36 +1,21 @@
-import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-
-const octokit = new Octokit({ });
-
 function updateDynamicText() {
-  document.getElementById('dynamic-text').innerHTML = document.querySelector("input[name='dynamic-text-field']").value;
+  const dynamicTextValue = document.querySelector("input[name='dynamic-text-field']").value
+  document.getElementById('dynamic-text').innerHTML = dynamicTextValue;
+  document.cookie = "dynamicText=" + dynamicTextValue + "; path=" + window.location.href;
   return false;
 }
 
-async function displayDynamicText() {
-/*
-const value = async () => {
-  const response = await fetch('https://api.github.com/repos/towfiqur-rahman/arqiva-cloud/actions/variables/dynamic_text', {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  });
-  console.log(await response.json());
-};
-value();*/
-  const response = await octokit.request('GET /repos/{owner}/{repo}/actions/variables', {
-    owner: 'towfiqur-rahman',
-    repo: 'arqiva-cloud',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  });
-  console.log(respose);
-  //document.getElementById('dynamic-text').innerHTML = document.querySelector("input[name='dynamic-text-field']").value;
-
-}
 document.addEventListener('DOMContentLoaded', function() {
-   displayDynamicText();
+   let decodedCookie = decodeURIComponent(document.cookie);
+   let ca = decodedCookie.split(';');
+   for(let i = 0; i <ca.length; i++) {
+     let c = ca[i];
+     while (c.charAt(0) == ' ') {
+       c = c.substring(1);
+     }
+     if (c.indexOf('dynamicText=') == 0) {
+       document.getElementById('dynamic-text').innerHTML =  c.substring(12, c.length);
+       break;
+     }
+   }
 }, false);
