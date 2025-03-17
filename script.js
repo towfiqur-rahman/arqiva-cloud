@@ -1,7 +1,5 @@
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 
-import Octokit from "octokit";
-
 const octokit = new Octokit({ });
 
 function updateDynamicText() {
