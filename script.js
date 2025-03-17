@@ -4,7 +4,6 @@ const octokit = new Octokit({ });
 
 function updateDynamicText() {
   document.getElementById('dynamic-text').innerHTML = document.querySelector("input[name='dynamic-text-field']").value;
-  displayDynamicText();
   return false;
 }
 
