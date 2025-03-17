@@ -31,3 +31,6 @@ value();*/
   //document.getElementById('dynamic-text').innerHTML = document.querySelector("input[name='dynamic-text-field']").value;
 
 }
+document.addEventListener('DOMContentLoaded', function() {
+   displayDynamicText();
+}, false);
